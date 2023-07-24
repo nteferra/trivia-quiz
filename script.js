@@ -80,8 +80,8 @@ function buildQuiz() {
     //iterate over answers
     for(letter in currentQuestion.answers) {
         answers.push(
-            `<label>
-                <input type="radio" name="question${currentQuestionNumber}" value="${letter}">
+            `<label class="form-check-label choice">
+                <input type="radio" class="form-check-input" name="question${currentQuestionNumber}" value="${letter}">
                 ${letter} :
                 ${currentQuestion.answers[letter]}
             </label>`
