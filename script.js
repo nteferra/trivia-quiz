@@ -5,6 +5,12 @@ const nextBtn = document.getElementById('next');
 const userAnswers = [];
 let currentQuestionNumber = 0
 
+//greeting
+const greetDiv = document.createElement('div')
+greetDiv.classList.add("greetDiv")
+
+
+
 const myQuestions = [
     {
         question: "What is the largest planet in the Galaxy?",
@@ -70,7 +76,46 @@ const myQuestions = [
     
 ]
 
+
+
+function greet() {
+    document.querySelector('.hide').style.display = "none";
+    // Create the text element
+    const text = document.createElement("h1");
+    text.id = "text";
+    text.innerHTML = "Want to play a game?";
+    text.style.opacity = 0;
+    text.style.transition = "opacity 0.5s ease-in-out";
+    greetDiv.appendChild(text);
+    document.body.appendChild(greetDiv)
+  
+    // Create the button element
+    const button = document.createElement("button");
+    button.classList.add("btn", "btn-secondary")
+    button.id = "button";
+    button.innerHTML = "Lets go!";
+    button.style.opacity = 0;
+    button.style.transition = "opacity 0.5s ease-in-out";
+    button.style.pointerEvents = "none";
+    greetDiv.appendChild(button);
+    button.addEventListener('click', buildQuiz)
+  
+    setTimeout(function() {
+      // Re-enable mouse/touch events on the button
+      button.style.pointerEvents = 'auto';
+      // Show the text and button
+      text.style.opacity = 1;
+      button.style.opacity = 1;
+    }, 1000);
+
+}
+
 function buildQuiz() {            
+    if (greetDiv.style.display !== "none") {
+        greetDiv.style.display = "none";
+    }
+    
+    document.querySelector('.hide').style.display = "block";
     //get current question
     const currentQuestion = myQuestions[currentQuestionNumber];
 
@@ -133,9 +178,6 @@ function showResults() {
 
 }
 
-// build quiz on page load
-buildQuiz()
-
 nextBtn.addEventListener('click', showNext)
 
-
+greet()

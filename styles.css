@@ -1,6 +1,13 @@
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
     height: 100vh;
+    background-image: url(off-white-paint.jpg);
+    background-size: cover;
 }
 
 #container {
@@ -9,10 +16,11 @@ body {
 }
 
 .mycontainer {
+    display: block;
     width: fit-content;
     height: fit-content;
     padding: 1rem;
-    margin: 2rem;
+    font-size: 18pt;
 }
 
 .choice {
@@ -20,4 +28,22 @@ body {
     width: 100%;
     padding: 4px;
     text-align: left;
+}
+
+#next {
+    width: 8rem;
+    font-size: 18pt;
+}
+
+.btnContainer {
+    padding: 1rem;
+    text-align: right;
+}
+
+.hide {
+    display: none;
+}
+
+.greetDiv {
+    text-align: center;
 }
