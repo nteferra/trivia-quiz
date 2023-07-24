@@ -1,7 +1,7 @@
 const container = document.getElementById('container');
-const submitBtn = document.getElementById('submit');
 const results = document.getElementById('results');
 const nextBtn = document.getElementById('next');
+const reset = document.getElementById('reset')
 const userAnswers = [];
 let currentQuestionNumber = 0
 
@@ -114,6 +114,9 @@ function buildQuiz() {
     if (greetDiv.style.display !== "none") {
         greetDiv.style.display = "none";
     }
+    if (results.style.display !== "none") {
+        results.style.display = "none"
+    }
     
     document.querySelector('.hide').style.display = "block";
     //get current question
@@ -142,6 +145,14 @@ function buildQuiz() {
     container.innerHTML = output;
 }
 
+function resetGame() {
+    currentQuestionNumber = 0
+    userAnswers.length = 0
+
+    results.innerHTML = "";
+    buildQuiz()
+}
+
 function showNext() {
     //get user answer for current question
     const answerContainer = container.querySelector('.answers');
@@ -162,6 +173,8 @@ function showNext() {
 }
 
 function showResults() {
+    document.querySelector('.hide').style.display = "none";
+    results.style.display = "flex"
     let numCorrect = 0;
 
     myQuestions.forEach( (currentQuestion, questionNumber) => {
@@ -173,11 +186,12 @@ function showResults() {
         }
     });
 
-    results.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+    results.innerHTML += `You got ${numCorrect} out of ${myQuestions.length} correct`;
 
 
 }
 
 nextBtn.addEventListener('click', showNext)
+
 
 greet()
