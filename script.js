@@ -1,25 +1,9 @@
 const container = document.getElementById('container');
 const submitBtn = document.getElementById('submit');
 const results = document.getElementById('results');
-
-function buildQuiz() {
-    //store html output
-    const output = [];
-
-    //for each question
-    myQuestions.forEach(
-
-    )
-}
-
-function showResults() {
-
-}
-
-// build quiz on page load
-buildQuiz()
-
-submitBtn.addEventListener('click', showResults);
+const nextBtn = document.getElementById('next');
+const userAnswers = [];
+let currentQuestionNumber = 0
 
 const myQuestions = [
     {
@@ -85,3 +69,73 @@ const myQuestions = [
  
     
 ]
+
+function buildQuiz() {            
+    //get current question
+    const currentQuestion = myQuestions[currentQuestionNumber];
+
+    //store possible answers
+    const answers = [];
+
+    //iterate over answers
+    for(letter in currentQuestion.answers) {
+        answers.push(
+            `<label>
+                <input type="radio" name="question${currentQuestionNumber}" value="${letter}">
+                ${letter} :
+                ${currentQuestion.answers[letter]}
+            </label>`
+        );
+    }
+
+    //add to output
+    const output = 
+        `<div class="question">${currentQuestion.question}</div>
+        <div class="answers">${answers.join('')}</div>`;
+
+    // render the output
+    container.innerHTML = output;
+}
+
+function showNext() {
+    //get user answer for current question
+    const answerContainer = container.querySelector('.answers');
+    const selector = `input[name=question${currentQuestionNumber}]:checked`;
+    const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+    userAnswers[currentQuestionNumber] = userAnswer;
+    
+    //Increment counter
+    currentQuestionNumber++;
+
+    //check if there are more questions
+    if (currentQuestionNumber < myQuestions.length) {
+        buildQuiz()
+    } else {
+        showResults()
+    }
+}
+
+function showResults() {
+    let numCorrect = 0;
+
+    myQuestions.forEach( (currentQuestion, questionNumber) => {
+        const userAnswer = userAnswers[questionNumber];
+
+        //if correct
+        if (userAnswer === currentQuestion.correctAnswer) {
+            numCorrect++;
+        }
+    });
+
+    results.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+
+
+}
+
+// build quiz on page load
+buildQuiz()
+
+nextBtn.addEventListener('click', showNext)
+
+
