@@ -1,5 +1,6 @@
 const container = document.getElementById('container');
 const results = document.getElementById('results');
+const score = document.querySelector('.score')
 const nextBtn = document.getElementById('next');
 const reset = document.getElementById('reset')
 const userAnswers = [];
@@ -84,6 +85,7 @@ function greet() {
     const text = document.createElement("h1");
     text.id = "text";
     text.innerHTML = "Want to play a game?";
+    text.style.marginBottom = "2rem";
     text.style.opacity = 0;
     text.style.transition = "opacity 0.5s ease-in-out";
     greetDiv.appendChild(text);
@@ -95,6 +97,7 @@ function greet() {
     button.id = "button";
     button.innerHTML = "Lets go!";
     button.style.opacity = 0;
+    button.style.fontSize = "18pt"
     button.style.transition = "opacity 0.5s ease-in-out";
     button.style.pointerEvents = "none";
     greetDiv.appendChild(button);
@@ -149,7 +152,7 @@ function resetGame() {
     currentQuestionNumber = 0
     userAnswers.length = 0
 
-    results.innerHTML = "";
+    score.innerHTML = "";
     buildQuiz()
 }
 
@@ -186,7 +189,7 @@ function showResults() {
         }
     });
 
-    results.innerHTML += `You got ${numCorrect} out of ${myQuestions.length} correct`;
+    score.innerHTML += `You got ${numCorrect} out of ${myQuestions.length} correct`;
 
 
 }
